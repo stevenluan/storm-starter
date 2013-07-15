@@ -30,6 +30,7 @@ public class ExclamationTopology {
 
         @Override
         public void execute(Tuple tuple) {
+        	System.out.println("tuplevalue ========"+tuple.getString(0));
             _collector.emit(tuple, new Values(tuple.getString(0) + "!!!"));
             _collector.ack(tuple);
         }

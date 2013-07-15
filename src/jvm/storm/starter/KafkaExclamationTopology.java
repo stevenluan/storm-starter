@@ -61,13 +61,12 @@ public class KafkaExclamationTopology {
                 .shuffleGrouping("exclaim1");
                 
         Config conf = new Config();
-        conf.put(conf.STORM_ZOOKEEPER_SERVERS, ImmutableList.of("zkserver1-13722.phx-os1.stratus.dev.ebay.com"));
-        if(args!=null && args.length > 0) {
+       if(args!=null && args.length > 0) {
             conf.setNumWorkers(3);
             
             StormSubmitter.submitTopology(args[0], conf, builder.createTopology());
         } else {
-        
+        	conf.put(conf.STORM_ZOOKEEPER_SERVERS, ImmutableList.of("zkserver1-13722.phx-os1.stratus.dev.ebay.com"));
             LocalCluster cluster = new LocalCluster();
             cluster.submitTopology("test", conf, builder.createTopology());
             //Utils.sleep(10000);
