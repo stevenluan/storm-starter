@@ -50,7 +50,7 @@ public class KafkaExclamationTopology {
     
     public static void main(String[] args) throws Exception {
         TopologyBuilder builder = new TopologyBuilder();
-        SpoutConfig spoutConfig = new SpoutConfig(StaticHosts.fromHostString(ImmutableList.of("kafka1-13745.phx-os1.stratus.dev.ebay.com", "kafka2-13746.phx-os1.stratus.dev.ebay.com"), 1), "test", "/kafkastorm", "discovery"
+        SpoutConfig spoutConfig = new SpoutConfig(StaticHosts.fromHostString(ImmutableList.of("kafka1-13745.phx-os1.stratus.dev.ebay.com", "kafka2-13746.phx-os1.stratus.dev.ebay.com"), 0), "test", "/kafkastorm", "discovery"
 		  );
         KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
 
