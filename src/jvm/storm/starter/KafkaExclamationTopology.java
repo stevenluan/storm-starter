@@ -2,7 +2,6 @@ package storm.starter;
 
 import java.util.Map;
 
-import storm.kafka.KafkaConfig.StaticHosts;
 import storm.kafka.KafkaSpout;
 import storm.kafka.SpoutConfig;
 import backtype.storm.Config;
@@ -16,7 +15,7 @@ import backtype.storm.topology.base.BaseRichBolt;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
-import backtype.storm.utils.Utils;
+import storm.kafka.KafkaConfig;
 
 import com.google.common.collect.ImmutableList;
 
@@ -50,8 +49,8 @@ public class KafkaExclamationTopology {
     
     public static void main(String[] args) throws Exception {
         TopologyBuilder builder = new TopologyBuilder();
-        SpoutConfig spoutConfig = new SpoutConfig(StaticHosts.fromHostString(ImmutableList.of("kafka1-13745.phx-os1.stratus.dev.ebay.com", "kafka2-13746.phx-os1.stratus.dev.ebay.com"), 1), "test", "/kafkastorm", "discovery"
-		  );
+//        SpoutConfig spoutConfig = new SpoutConfig(StaticHosts.fromHostString(ImmutableList.of("kafka1-13745.phx-os1.stratus.dev.ebay.com", "kafka2-13746.phx-os1.stratus.dev.ebay.com"), 1), "test", "/kafkastorm", "discovery");
+        SpoutConfig spoutConfig = new SpoutConfig(new KafkaConfig.ZkHosts("zkserver1-13722.phx-os1.stratus.dev.ebay.com","/brokers"), "test", "/kafkastorm", "discovery");
         KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
 
         builder.setSpout("word", kafkaSpout, 1);        
