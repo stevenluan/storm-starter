@@ -90,6 +90,17 @@
 		  <artifactId>storm-kafka</artifactId>
 		  <version>0.8.0-wip3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.12</version>
+		</dependency>
+		<dependency>
+			<groupId>kafka</groupId>
+			<artifactId>kafka-core</artifactId>
+			<version>0.7.2</version>
+		</dependency>            
+		            
 	</dependencies>
 
 	<build>
