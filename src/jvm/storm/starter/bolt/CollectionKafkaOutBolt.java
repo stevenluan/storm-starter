@@ -15,9 +15,10 @@ import backtype.storm.tuple.Tuple;
 
 
 public class CollectionKafkaOutBolt extends BaseBasicBolt {
-	private ObjectMapper mapper = new ObjectMapper(); 
-    @Override
+	@Override
     public void execute(Tuple tuple, BasicOutputCollector collector) {
+		ObjectMapper mapper = new ObjectMapper(); 
+	    
     	Rankings rankings = (Rankings) tuple.getValue(0);
     	try {
 			String rankingsAsString = mapper.writeValueAsString(rankings);

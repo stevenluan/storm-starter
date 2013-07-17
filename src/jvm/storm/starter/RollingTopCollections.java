@@ -3,6 +3,7 @@ package storm.starter;
 import storm.kafka.KafkaConfig;
 import storm.kafka.KafkaSpout;
 import storm.kafka.SpoutConfig;
+import storm.starter.bolt.CollectionKafkaOutBolt;
 import storm.starter.bolt.IntermediateRankingsBolt;
 import storm.starter.bolt.RollingCountOfCollectionBolt;
 import storm.starter.bolt.TotalRankingsBolt;
@@ -51,6 +52,7 @@ public class RollingTopCollections {
 		String counterId = "counter";
 		String intermediateRankerId = "intermediateRanker";
 		String totalRankerId = "finalRanker";
+		String rankPusherId = "rankPusher";
 		SpoutConfig spoutConfig = new SpoutConfig(new KafkaConfig.ZkHosts(
 				"zkserver1-13722.phx-os1.stratus.dev.ebay.com", "/brokers"),
 				"collection", "/kafkastorm", "discovery");
@@ -65,6 +67,8 @@ public class RollingTopCollections {
 				counterId, new Fields("obj"));
 		builder.setBolt(totalRankerId, new TotalRankingsBolt(TOP_N))
 				.globalGrouping(intermediateRankerId);
+		builder.setBolt(rankPusherId, new CollectionKafkaOutBolt())
+				.globalGrouping(totalRankerId);
 	}
 
 	public void run(String[] args) throws InterruptedException,
