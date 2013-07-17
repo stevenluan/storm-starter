@@ -53,7 +53,7 @@ public class RollingTopCollections {
 		String totalRankerId = "finalRanker";
 		SpoutConfig spoutConfig = new SpoutConfig(new KafkaConfig.ZkHosts(
 				"zkserver1-13722.phx-os1.stratus.dev.ebay.com", "/brokers"),
-				"test", "/kafkastorm", "discovery");
+				"collection", "/kafkastorm", "discovery");
 		spoutConfig.scheme = new CollectionScheme();
 		KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
 
