@@ -2,6 +2,7 @@ package storm.starter.bolt;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -15,6 +16,8 @@ import backtype.storm.tuple.Tuple;
 
 
 public class CollectionKafkaOutBolt extends BaseBasicBolt {
+	private static final Logger LOG = Logger.getLogger(CollectionKafkaOutBolt.class);
+    
 	@Override
     public void execute(Tuple tuple, BasicOutputCollector collector) {
 		ObjectMapper mapper = new ObjectMapper(); 
@@ -22,6 +25,7 @@ public class CollectionKafkaOutBolt extends BaseBasicBolt {
     	Rankings rankings = (Rankings) tuple.getValue(0);
     	try {
 			String rankingsAsString = mapper.writeValueAsString(rankings);
+			LOG.info("Top Collections Rankings"+rankingsAsString);
 			KafkaProducer.getInstance().send("TopCollections", rankingsAsString);
 		} catch (JsonGenerationException e) {
 			// TODO Auto-generated catch block

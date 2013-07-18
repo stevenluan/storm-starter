@@ -84,6 +84,7 @@ public class RollingCountOfCollectionBolt extends BaseRichBolt {
             emitCurrentWindowCounts();
         }
         else {
+        	LOG.info("countObjAndAck");
             countObjAndAck(tuple);
         }
     }
