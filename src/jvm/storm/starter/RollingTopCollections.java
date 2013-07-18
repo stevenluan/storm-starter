@@ -59,7 +59,7 @@ public class RollingTopCollections {
 		spoutConfig.scheme = new CollectionScheme();
 		KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
 
-		builder.setSpout(spoutId, kafkaSpout, 5);
+		builder.setSpout(spoutId, kafkaSpout, 1);
 		builder.setBolt(counterId, new RollingCountOfCollectionBolt(9, 3), 4)
 				.fieldsGrouping(spoutId, new Fields("collId"));
 		builder.setBolt(intermediateRankerId,
