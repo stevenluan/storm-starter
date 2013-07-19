@@ -13,6 +13,7 @@ import backtype.storm.Config;
 import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
+import backtype.storm.spout.SchemeAsMultiScheme;
 import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.tuple.Fields;
 
@@ -55,8 +56,8 @@ public class RollingTopCollections {
 		String rankPusherId = "rankPusher";
 		SpoutConfig spoutConfig = new SpoutConfig(new KafkaConfig.ZkHosts(
 				"zkserver1-13722.phx-os1.stratus.dev.ebay.com", "/brokers"),
-				"coll", "/kafkastorm", "discovery");
-		spoutConfig.scheme = new CollectionScheme();
+				"coll-new", "/kafkastorm", "discovery");
+		spoutConfig.scheme = new SchemeAsMultiScheme(new CollectionScheme());
 		KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
 
 		builder.setSpout(spoutId, kafkaSpout, 1);

@@ -5,9 +5,11 @@ import java.util.Map;
 import storm.kafka.KafkaConfig;
 import storm.kafka.KafkaSpout;
 import storm.kafka.SpoutConfig;
+import storm.kafka.StringScheme;
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
+import backtype.storm.spout.SchemeAsMultiScheme;
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
@@ -51,7 +53,7 @@ public class KafkaExclamationTopology {
         TopologyBuilder builder = new TopologyBuilder();
 //        SpoutConfig spoutConfig = new SpoutConfig(StaticHosts.fromHostString(ImmutableList.of("kafka1-13745.phx-os1.stratus.dev.ebay.com", "kafka2-13746.phx-os1.stratus.dev.ebay.com"), 1), "test", "/kafkastorm", "discovery");
         SpoutConfig spoutConfig = new SpoutConfig(new KafkaConfig.ZkHosts("zkserver1-13722.phx-os1.stratus.dev.ebay.com","/brokers"), "test", "/kafkastorm", "discovery");
-        spoutConfig.scheme = new storm.kafka.StringScheme();
+        spoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
         KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
 
         builder.setSpout("word", kafkaSpout, 1);        

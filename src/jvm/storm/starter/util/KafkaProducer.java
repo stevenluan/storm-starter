@@ -1,8 +1,9 @@
 package storm.starter.util;
 
+import java.util.Properties;
+
 import kafka.javaapi.producer.ProducerData;
 import kafka.producer.ProducerConfig;
-import java.util.Properties;
 
 public class KafkaProducer {
 	private final static Properties props = new Properties();
