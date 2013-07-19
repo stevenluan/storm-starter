@@ -110,7 +110,7 @@ public class RollingCountOfCollectionBolt extends BaseRichBolt {
     private void countObjAndAck(Tuple tuple) {
         Object obj = tuple.getValue(0);
         Object action = tuple.getValue(1);
-        if(((String)action).equals("1")){
+        if(action.equals(1)){
         	for(int i=0;i<10;i++){
         		counter.incrementCount(obj);
         	}
