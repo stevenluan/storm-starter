@@ -10,7 +10,7 @@ public class KafkaProducer {
 	static {
 		props.put("serializer.class", "kafka.serializer.StringEncoder");
 		props.put("zk.connect",
-				"zkserver1-13722.phx-os1.stratus.dev.ebay.com:2181");
+				"zk2-13723.phx-os1.stratus.dev.ebay.com:2181");
 	}
 	private final static kafka.javaapi.producer.Producer<Integer, String> producer = new kafka.javaapi.producer.Producer<Integer, String>(
 			new ProducerConfig(props));;

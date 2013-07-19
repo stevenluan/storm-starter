@@ -86,8 +86,4 @@ public class Rankings implements Serializable {
             rankedItems.remove(maxSize);
         }
     }
-
-    public String toString() {
-        return rankedItems.toString();
-    }
 }
