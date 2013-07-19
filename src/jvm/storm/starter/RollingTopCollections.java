@@ -26,7 +26,7 @@ import backtype.storm.tuple.Fields;
 public class RollingTopCollections {
 
 	private static final int DEFAULT_RUNTIME_IN_SECONDS = 60;
-	private static final int TOP_N = 10;
+	private static final int TOP_N = 5;
 
 	private final TopologyBuilder builder;
 	private final String topologyName;
@@ -64,9 +64,9 @@ public class RollingTopCollections {
 		builder.setBolt(counterId, new RollingCountOfCollectionBolt(9, 3), 4)
 				.fieldsGrouping(spoutId, new Fields("collId"));
 		builder.setBolt(intermediateRankerId,
-				new IntermediateRankingsBolt(TOP_N), 4).fieldsGrouping(
+				new IntermediateRankingsBolt(TOP_N, 5), 4).fieldsGrouping(
 				counterId, new Fields("obj"));
-		builder.setBolt(totalRankerId, new TotalRankingsBolt(TOP_N))
+		builder.setBolt(totalRankerId, new TotalRankingsBolt(TOP_N, 10))
 				.globalGrouping(intermediateRankerId);
 		builder.setBolt(rankPusherId, new CollectionKafkaOutBolt())
 				.globalGrouping(totalRankerId);
