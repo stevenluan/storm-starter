@@ -1,5 +1,6 @@
 package storm.starter.tools;
 
+import java.io.Serializable;
 import java.util.List;
 
 import backtype.storm.tuple.Tuple;
@@ -13,7 +14,7 @@ import com.google.common.collect.Lists;
  * This class can be used, for instance, to track the number of occurrences of an object in a Storm topology.
  * 
  */
-public class RankableObjectWithFields implements Rankable {
+public class RankableObjectWithFields implements Rankable,Serializable {
 
     private static final String toStringSeparator = "|";
 
