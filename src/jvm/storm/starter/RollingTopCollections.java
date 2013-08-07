@@ -61,12 +61,12 @@ public class RollingTopCollections {
 		KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
 
 		builder.setSpout(spoutId, kafkaSpout, 1);
-		builder.setBolt(counterId, new RollingCountOfCollectionBolt(9, 3), 4)
+		builder.setBolt(counterId, new RollingCountOfCollectionBolt(600, 10), 16)
 				.fieldsGrouping(spoutId, new Fields("collId"));
 		builder.setBolt(intermediateRankerId,
-				new IntermediateRankingsBolt(TOP_N, 5), 4).fieldsGrouping(
+				new IntermediateRankingsBolt(TOP_N, 30), 8).fieldsGrouping(
 				counterId, new Fields("obj"));
-		builder.setBolt(totalRankerId, new TotalRankingsBolt(TOP_N, 10))
+		builder.setBolt(totalRankerId, new TotalRankingsBolt(TOP_N, 60))
 				.globalGrouping(intermediateRankerId);
 		builder.setBolt(rankPusherId, new CollectionKafkaOutBolt())
 				.globalGrouping(totalRankerId);
